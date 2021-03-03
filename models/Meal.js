@@ -1,4 +1,6 @@
-const { Schema, model, ObjectId } = require('mongoose');
+import mongoose from 'mongoose';
+
+const { Schema, model, ObjectId } = mongoose;
 
 const mealSchema = new Schema({
   img: { type: String, required: true },
@@ -14,4 +16,4 @@ const mealSchema = new Schema({
   user: { type: ObjectId, ref: 'User' }
 })
 
-module.exports = model('Meal', mealSchema);
+export default model('Meal', mealSchema);

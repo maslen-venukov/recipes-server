@@ -1,13 +1,7 @@
-const { Router } = require('express');
+import Favorite from '../models/Favorite.js';
+import Meal from '../models/Meal.js';
 
-const Favorite = require('../models/Favorite');
-const Meal = require('../models/Meal');
-const authMiddleware = require('../middlewares/auth');
-
-const router = Router();
-
-// add to favorites
-router.post('/:id', authMiddleware, async (req, res) => {
+export const add = async (req, res) => {
   try {
     const meal = req.params.id;
     const user = req.user.id;
@@ -30,10 +24,9 @@ router.post('/:id', authMiddleware, async (req, res) => {
     console.log(e);
     return res.status(500).json({ message: 'Что-то пошло не так' });
   }
-})
+}
 
-// get all
-router.get('/', authMiddleware, async (req, res) => {
+export const getAll = async (req, res) => {
   try {
     const user = req.user.id;
     const favorites = await Favorite.find({ user });
@@ -49,10 +42,9 @@ router.get('/', authMiddleware, async (req, res) => {
     console.log(e);
     return res.status(500).json({ message: 'Что-то пошло не так' });
   }
-})
+}
 
-// remove
-router.delete('/:id', async (req, res) => {
+export const remove = async (req, res) => {
   try {
     const _id = req.params.id;
     await Favorite.deleteOne({ _id });
@@ -61,6 +53,4 @@ router.delete('/:id', async (req, res) => {
     console.log(e);
     return res.status(500).json({ message: 'Что-то пошло не так' });
   }
-})
-
-module.exports = router;
+}

@@ -10,4 +10,4 @@ const parseMeal = obj => {
   return meal;
 }
 
-module.exports = parseMeal;
+export default parseMeal;

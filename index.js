@@ -1,10 +1,11 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const config = require('config');
+import express from 'express';
+import mongoose from 'mongoose';
+import config from 'config';
 
-const userRouter = require('./routes/user');
-const mealRouter = require('./routes/meal');
-const favoriteRouter = require('./routes/favorite');
+import userRouter from './routes/user.js';
+import mealRouter from './routes/meal.js';
+import favoritesRouter from './routes/favorites.js';
+import ownRouter from './routes/own.js';
 
 const PORT = config.get('port') || 5000;
 const DB_URL = config.get('dbUrl');
@@ -26,6 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRouter);
 app.use('/api/meal', mealRouter);
-app.use('/api/favorites', favoriteRouter);
+app.use('/api/favorites', favoritesRouter);
+app.use('/api/own', ownRouter);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+// TODO сделать authMiddleware на удаление из бд
