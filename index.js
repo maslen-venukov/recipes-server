@@ -1,4 +1,5 @@
 import express from 'express';
+import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
 import config from 'config';
 
@@ -15,7 +16,8 @@ const app = express();
 const dbConfig = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 }
 
 mongoose.connect(DB_URL, dbConfig)
@@ -24,6 +26,8 @@ mongoose.connect(DB_URL, dbConfig)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('static'));
+app.use(fileUpload({}));
 
 app.use('/api/users', userRouter);
 app.use('/api/meal', mealRouter);
@@ -32,4 +36,4 @@ app.use('/api/own', ownRouter);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-// TODO сделать authMiddleware на удаление из бд
+// TODO перенести валидацию создания/редактирования рецепта на бэкенд 

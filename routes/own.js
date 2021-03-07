@@ -1,12 +1,13 @@
 import { Router } from 'express';
 
-import { create, getAll, remove } from '../controllers/own.js';
+import { create, getAll, update, remove } from '../controllers/own.js';
 import authMiddleware from '../middlewares/auth.js';
 
 const router = Router();
 
 router.post('/', authMiddleware, create);
 router.get('/', authMiddleware, getAll);
-router.delete('/:id', remove);
+router.patch('/:id', authMiddleware, update);
+router.delete('/:id', authMiddleware, remove);
 
 export default router;

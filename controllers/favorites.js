@@ -14,10 +14,7 @@ export const add = async (req, res) => {
     await favorite.save();
 
     const { _id, img, name } = await Meal.findById(favorite.meal).exec();
-    const data = {
-      _id: favorite.id,
-      meal: { _id, img, name }
-    }
+    const data = { _id: favorite.id, meal: { _id, img, name } };
 
     return res.json(data);
   } catch (e) {
@@ -47,6 +44,16 @@ export const getAll = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const _id = req.params.id;
+    const user = req.user.id;
+
+    const favorite = await Favorite.findOne({ _id });
+
+    if(!favorite)
+      return res.status(404).json({ message: 'Рецепт не найден' });
+
+    if(favorite.user.toString() !== user)
+      return res.status(400).json({ message: 'Недостаточно прав для удаления' });
+
     await Favorite.deleteOne({ _id });
     return res.json({ message: 'Рецепт удален из избранного' });
   } catch (e) {

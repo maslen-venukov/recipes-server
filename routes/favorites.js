@@ -7,6 +7,6 @@ const router = Router();
 
 router.post('/:id', authMiddleware, add);
 router.get('/', authMiddleware, getAll);
-router.delete('/:id', remove);
+router.delete('/:id', authMiddleware, remove);
 
 export default router;
