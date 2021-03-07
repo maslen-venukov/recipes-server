@@ -8,7 +8,7 @@ import mealRouter from './routes/meal.js';
 import favoritesRouter from './routes/favorites.js';
 import ownRouter from './routes/own.js';
 
-const PORT = config.get('port') || 5000;
+const PORT = process.env.PORT || config.get('port') || 5000;
 const DB_URL = config.get('dbUrl');
 
 const app = express();
