@@ -35,5 +35,3 @@ app.use('/api/favorites', favoritesRouter);
 app.use('/api/own', ownRouter);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
-// TODO перенести валидацию создания/редактирования рецепта на бэкенд 
