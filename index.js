@@ -34,4 +34,6 @@ app.use('/api/meal', mealRouter);
 app.use('/api/favorites', favoritesRouter);
 app.use('/api/own', ownRouter);
 
+app.get('/', (req, res) => res.send('Hello from recipes API'));
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
